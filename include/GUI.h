@@ -1,60 +1,21 @@
 // ============================================================
-//  GUI.h  —  Auton Selector + Debug Header for ZIPTIDE
-//  Team 5069G  |  V5RC Override 2026-27
+//  GUI.h  —  Auton Selector + Debug | ZIPTIDE 5069G
+//  V5RC Override 2026-27  |  LVGL 9.2  |  PROS 4
 // ============================================================
-
 #pragma once
-
 #include "api.h"
 
-/**
- * Enumeration for Autonomous routines.
- * Matches the IDs used in the AutonEntry list.
- */
 enum AutonomousID {
-    AUTON_NONE = 0,
-    AUTON_SPLIT_LEFT,
-    AUTON_SPLIT_RIGHT,
-    AUTON_LEFT_WING,
-    AUTON_RIGHT_WING,
-    AUTON_SAWP,
-    AUTON_SKILLS
+    AUTON_NONE  = 0,
+    AUTON_LEFT  = 1,
+    AUTON_RIGHT = 2,
+    AUTON_SKILLS  = 3,
 };
 
-// ─────────────────────────────────────────────
-//  GLOBAL DATA
-// ─────────────────────────────────────────────
-
-/**
- * The currently selected autonomous ID. 
- * Marked volatile as it is accessed by the GUI task and the main competition thread.
- */
 extern volatile int selectedAuton;
 
-// ─────────────────────────────────────────────
-//  PUBLIC API
-// ─────────────────────────────────────────────
-
-/**
- * Initializes the GUI and displays the Autonomous Selector screen.
- * This should typically be called in initialize() or disabled().
- */
-void GUI_runAutonSelector();
-
-/**
- * Initializes and starts the background debug task.
- * Switches the screen to the Debug dashboard.
- */
-void GUI_showDebugScreen();
-
-/**
- * The task loop for updating sensor values and motor temps on the debug screen.
- * @param param Unused task parameter.
- */
+// ── Public API ───────────────────────────────────────────────
+void GUI_runAutonSelector();   // call in initialize()
+void GUI_showDebugScreen();    // call in opcontrol() or disabled()
 void GUI_debugTask(void* param);
-
-/**
- * Helper to ensure the debug task is initialized and the screen loaded.
- */
 void GUI_initDebugTask();
-

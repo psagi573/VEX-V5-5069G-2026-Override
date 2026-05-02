@@ -1,6 +1,6 @@
 #pragma once
 
 // Add your auton function declarations here as you write them
-void autonLeft();
-void autonRight();
-void autonSkills();
+void left();
+void right();
+void skills();
