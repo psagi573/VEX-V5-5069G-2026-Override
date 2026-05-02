@@ -8,6 +8,7 @@
 #define MVLIB_USE_SIMPLES
 #include "mvlib/api.hpp"
 #include "mvlib/Optional/lemlib.hpp"
+#include "robot-config.h"
 
 #ifdef __cplusplus
 extern "C" {

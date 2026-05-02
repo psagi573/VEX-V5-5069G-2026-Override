@@ -1,17 +1,10 @@
 #include "drivetrain.h"
 #include "robot-config.h"
-#include "main.h"
 #include <cmath>
-#include <algorithm>
-
 // ============================================================
 //  drivetrain.cpp — ZIPPY 2 | Override 2026-2027
 // ============================================================
 
-static double applyDeadband(double value, double deadband) {
-    if (fabs(value) < deadband) return 0.0;
-    return value;
-}
 
 // --------- CURVATURE DRIVE WITH EXPONENTIAL SCALING ---------
 // Left stick  = forward/back
@@ -19,38 +12,10 @@ static double applyDeadband(double value, double deadband) {
 // Cubic scaling for precision at low stick values
 void DriveTrainControls() {
     while (true) {
-        double raw_throttle = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) / 127.0;
-        double raw_turn     = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) / 127.0;
+        int throttle = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int turn     = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
-        // Deadband
-        raw_throttle = applyDeadband(raw_throttle, 0.05);
-        raw_turn     = applyDeadband(raw_turn, 0.05);
-
-        // Cubic exponential scaling
-        double throttle = raw_throttle * raw_throttle * raw_throttle;
-        double turn     = raw_turn * raw_turn * raw_turn;
-
-        double leftVolt, rightVolt;
-
-        if (fabs(throttle) < 0.01) {
-            // Point turn when nearly stopped
-            leftVolt  =  turn * 12000.0;
-            rightVolt = -turn * 12000.0;
-        } else {
-            // Curvature: turn scales with speed
-            leftVolt  = (throttle + fabs(throttle) * turn) * 12000.0;
-            rightVolt = (throttle - fabs(throttle) * turn) * 12000.0;
-
-            // Normalize so neither side exceeds max voltage
-            double maxVolt = std::max(fabs(leftVolt), fabs(rightVolt));
-            if (maxVolt > 12000.0) {
-                leftVolt  *= 12000.0 / maxVolt;
-                rightVolt *= 12000.0 / maxVolt;
-            }
-        }
-
-        DriveL.move_voltage(leftVolt);
-        DriveR.move_voltage(rightVolt);
+        chassis.curvature(throttle, turn);
 
         pros::delay(10);
     }

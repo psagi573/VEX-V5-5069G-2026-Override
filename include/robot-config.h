@@ -31,5 +31,9 @@ extern pros::Imu imu;           // [PORT 10]
 extern pros::Rotation trackY;   // [PORT 11] vertical tracking wheel
 extern pros::Rotation trackX;   // [PORT 12] horizontal tracking wheel
 
+// Expo drive curves
+extern lemlib::ExpoDriveCurve throttle_curve;
+extern lemlib::ExpoDriveCurve steer_curve;
+
 // LemLib Chassis
 extern lemlib::Chassis chassis;
