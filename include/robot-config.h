@@ -8,6 +8,7 @@
 // Controllers
 extern pros::Controller master;
 extern pros::Controller partner;
+extern pros::adi::DigitalIn bumper_switch;
 
 // Drivetrain Motors
 // 6 motor: 2x 11W + 1x 5.5W per side | Blue (600RPM) | 48:84 | 4" wheels

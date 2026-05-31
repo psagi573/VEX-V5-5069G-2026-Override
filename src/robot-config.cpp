@@ -1,4 +1,5 @@
 #include "robot-config.h"
+#include "pros/adi.hpp"
 
 // ============================================================
 //  robot-config.cpp — ZIPPY 2 | Override 2026-2027
@@ -10,12 +11,13 @@ pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
 // Drivetrain Motors
 // Negative port = reversed. Adjust when robot is built.
-pros::Motor dt_L1(-1, pros::MotorGears::blue); // [PORT] Left front  11W
+pros::Motor dt_L1(19, pros::MotorGears::blue); // [PORT] Left front  11W
 pros::Motor dt_L2(-2, pros::MotorGears::blue); // [PORT] Left back   11W
 pros::Motor dt_L3(-3, pros::MotorGears::blue); // [PORT] Left middle 5.5W
-pros::Motor dt_R1(4, pros::MotorGears::blue);  // [PORT] Right front 11W
+pros::Motor dt_R1(-20, pros::MotorGears::blue);  // [PORT] Right front 11W
 pros::Motor dt_R2(5, pros::MotorGears::blue);  // [PORT] Right back  11W
 pros::Motor dt_R3(6, pros::MotorGears::blue);  // [PORT] Right middle 5.5W
+pros::adi::DigitalIn bumper_switch('a');
 
 pros::MotorGroup DriveL({-1, -2, -3}, pros::MotorGears::blue); // [PORT]
 pros::MotorGroup DriveR({4, 5, 6}, pros::MotorGears::blue);    // [PORT]
