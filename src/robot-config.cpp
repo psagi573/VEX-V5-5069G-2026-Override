@@ -1,5 +1,8 @@
 #include "robot-config.h"
+#include "lemlib/chassis/trackingWheel.hpp"
+#include "pros/adi.h"
 #include "pros/adi.hpp"
+#include "pros/motors.hpp"
 
 // ============================================================
 //  robot-config.cpp — ZIPPY 2 | Override 2026-2027
@@ -11,21 +14,26 @@ pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
 // Drivetrain Motors
 // Negative port = reversed. Adjust when robot is built.
-pros::Motor dt_L1(19, pros::MotorGears::blue); // [PORT] Left front  11W
-pros::Motor dt_L2(-2, pros::MotorGears::blue); // [PORT] Left back   11W
-pros::Motor dt_L3(-3, pros::MotorGears::blue); // [PORT] Left middle 5.5W
-pros::Motor dt_R1(-20, pros::MotorGears::blue);  // [PORT] Right front 11W
-pros::Motor dt_R2(5, pros::MotorGears::blue);  // [PORT] Right back  11W
-pros::Motor dt_R3(6, pros::MotorGears::blue);  // [PORT] Right middle 5.5W
-pros::adi::DigitalIn bumper_switch('a');
+pros::Motor L1(-21, pros::MotorGears::blue); // [PORT] Left front  11W
+pros::Motor L2(17, pros::MotorGears::blue); // [PORT] Left back   11W
+pros::Motor L3(18, pros::MotorGears::green); // [PORT] Left middle 5.5W
+pros::Motor R1(-6, pros::MotorGears::blue);  // [PORT] Right front 11W
+pros::Motor R2(16, pros::MotorGears::blue);  // [PORT] Right back  11W
+pros::Motor R3(-15, pros::MotorGears::green);  // [PORT] Right middle 5.5W
+pros::Motor FourBar1(-8, pros::MotorGears::green); // [PORT]
+pros::Motor FourBar2(19, pros::MotorGears::green); // [PORT]
+pros::Motor intake (-2, pros::MotorGear::blue);
 
-pros::MotorGroup DriveL({-1, -2, -3}, pros::MotorGears::blue); // [PORT]
-pros::MotorGroup DriveR({4, 5, 6}, pros::MotorGears::blue);    // [PORT]
+pros::MotorGroup DriveL({-21, 17, 18}); // [PORT]
+pros::MotorGroup DriveR({-6, 16, -15});    // [PORT]
+pros::MotorGroup FourBar({19, -8});    // [PORT]
+
+
+pros::adi::Pneumatics claw('H', true);
 
 // Mechanism Motors — update cartridge once decided
-pros::Motor Claw(7, pros::MotorGears::green);    // [PORT]
-pros::Motor FourBar(8, pros::MotorGears::green); // [PORT]
-pros::Motor Lift(9, pros::MotorGears::green);    // [PORT]
+// pros::Motor Claw(7, pros::MotorGears::green);    // [PORT]
+// pros::Motor Lift(9, pros::MotorGears::green);    // [PORT]
 
 // Sensors
 pros::Imu imu(10);         // [PORT]
@@ -37,9 +45,9 @@ pros::Rotation trackX(12); // [PORT] horizontal
 // ============================================================
 
 lemlib::Drivetrain drivetrain(&DriveL, &DriveR,
-                              12.5, // [TUNE] track width in inches
-                              lemlib::Omniwheel::NEW_4, // 4 inch wheels
-                              343, // RPM after ratio: 600 * (48/84) ≈ 343
+                              12.5, //  track width in inches
+                              lemlib::Omniwheel::NEW_275, // 4 inch wheels
+                              450, // RPM after ratio: 600 * (36/48) ≈ 450
                               2    // horizontal drift
 );
 
@@ -72,8 +80,8 @@ lemlib::ControllerSettings angularPID(2,   // kP
 );
 
 // Expo drive curves
-lemlib::ExpoDriveCurve throttle_curve(3, 10, 1.019);
-lemlib::ExpoDriveCurve steer_curve(3, 10, 1.019);
+lemlib::ExpoDriveCurve throttle_curve(3, 10, 1.01);
+lemlib::ExpoDriveCurve steer_curve(3, 10, 1.01);
 
 lemlib::Chassis chassis(drivetrain, lateralPID, angularPID, sensors,
                         &throttle_curve, &steer_curve);
