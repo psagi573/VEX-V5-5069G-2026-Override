@@ -12,43 +12,42 @@
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
-// Drivetrain Motors
-// Negative port = reversed. Adjust when robot is built.
-pros::Motor L1(-21, pros::MotorGears::blue); // [PORT] Left front  11W
-pros::Motor L2(17, pros::MotorGears::blue); // [PORT] Left back   11W
-pros::Motor L3(18, pros::MotorGears::green); // [PORT] Left middle 5.5W
-pros::Motor R1(-6, pros::MotorGears::blue);  // [PORT] Right front 11W
-pros::Motor R2(16, pros::MotorGears::blue);  // [PORT] Right back  11W
-pros::Motor R3(-15, pros::MotorGears::green);  // [PORT] Right middle 5.5W
-pros::Motor FourBar1(-8, pros::MotorGears::green); // [PORT]
-pros::Motor FourBar2(19, pros::MotorGears::green); // [PORT]
-pros::Motor intake (-2, pros::MotorGear::blue);
+// Drivetrain Motors — negative port = reversed
+pros::Motor L1(-21, pros::MotorGears::blue);  // left front
+pros::Motor L2(17, pros::MotorGears::blue);   // left back
+pros::Motor L3(18, pros::MotorGears::green);  // left middle, 3:1 stepped to 600 rpm
+pros::Motor R1(-6, pros::MotorGears::blue);   // right front
+pros::Motor R2(16, pros::MotorGears::blue);   // right back
+pros::Motor R3(-15, pros::MotorGears::green); // right middle, 3:1 stepped to 600 rpm
 
-pros::MotorGroup DriveL({-21, 17, 18}); // [PORT]
-pros::MotorGroup DriveR({-6, 16, -15});    // [PORT]
-pros::MotorGroup FourBar({19, -8});    // [PORT]
+pros::Motor FourBar1(-8, pros::MotorGears::green);
+pros::Motor FourBar2(19, pros::MotorGears::green);
+pros::Motor intake(-2, pros::MotorGears::blue); // FIXED: was pros::MotorGear (wrong type, likely a compile error)
 
+pros::MotorGroup DriveL({-21, 17, 18});
+pros::MotorGroup DriveR({-6, 16, -15});
+pros::MotorGroup FourBar({19, -8});
 
 pros::adi::Pneumatics claw('H', true);
 
-// Mechanism Motors — update cartridge once decided
-// pros::Motor Claw(7, pros::MotorGears::green);    // [PORT]
-// pros::Motor Lift(9, pros::MotorGears::green);    // [PORT]
-
 // Sensors
-pros::Imu imu(10);         // [PORT]
-pros::Rotation trackY(11); // [PORT] vertical
-pros::Rotation trackX(12); // [PORT] horizontal
+pros::Imu imu(10);
+pros::Rotation trackY(11); // vertical
+pros::Rotation trackX(12); // horizontal
 
 // ============================================================
 //  LemLib Config
 // ============================================================
 
 lemlib::Drivetrain drivetrain(&DriveL, &DriveR,
-                              12.5, //  track width in inches
-                              lemlib::Omniwheel::NEW_275, // 4 inch wheels
-                              450, // RPM after ratio: 600 * (36/48) ≈ 450
-                              2    // horizontal drift
+                              12.5, // track width in inches [TUNE after robot is built]
+                              lemlib::Omniwheel::NEW_275, // 2.75" wheels
+                              // Wheel speed: motors run 600 rpm at the shared shaft
+                              // (blue direct, green stepped 3:1 from 200) through a
+                              // 36t:48t external drivetrain reduction -> 450 rpm at the wheel
+                              // 600 * (36/48) = 450
+                              450,
+                              8 // horizontal drift
 );
 
 lemlib::TrackingWheel vertWheel(&trackY, 2.0, 0.0);  // [TUNE] diameter, offset

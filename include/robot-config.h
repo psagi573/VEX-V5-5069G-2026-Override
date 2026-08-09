@@ -10,31 +10,33 @@
 extern pros::Controller master;
 extern pros::Controller partner;
 
-// Drivetrain Motors
-// 6 motor: 2x 11W + 1x 5.5W per side | Blue (600RPM) | 48:84 | 4" wheels
-extern pros::Motor L1;   // [PORT 1]  Left front  — 11W
-extern pros::Motor L2;   // [PORT 2]  Left back   — 11W
-extern pros::Motor L3;   // [PORT 3]  Left middle — 5.5W
-extern pros::Motor R1;   // [PORT 4]  Right front — 11W
-extern pros::Motor R2;   // [PORT 5]  Right back  — 11W
-extern pros::Motor R3;   // [PORT 6]  Right middle— 5.5W
+// Drivetrain Motors — 3 per side
+// 2x 11W blue cartridge (600 rpm) + 1x 5.5W green cartridge (200 rpm,
+// geared 3:1 internally so it also outputs 600 rpm at the shared shaft)
+// External drivetrain reduction: 36t driver : 48t driven -> wheel speed 450 rpm
+// Wheels: 2.75" omni
+extern pros::Motor L1;   // Port 21 (reversed) — blue  — left front
+extern pros::Motor L2;   // Port 17             — blue  — left back
+extern pros::Motor L3;   // Port 18             — green, 3:1 stepped — left middle
+extern pros::Motor R1;   // Port 6  (reversed) — blue  — right front
+extern pros::Motor R2;   // Port 16             — blue  — right back
+extern pros::Motor R3;   // Port 15 (reversed) — green, 3:1 stepped — right middle
 
 extern pros::MotorGroup DriveL;
 extern pros::MotorGroup DriveR;
 extern pros::MotorGroup FourBar;
 
 // Mechanism Motors
-// extern pros::Motor Claw;    // [PORT 7]  — cartridge TBD
-extern pros::Motor FourBar1; // [PORT 8]  — cartridge TBD
-extern pros::Motor FourBar2; // [PORT 8]  — cartridge TBD
-extern pros::Motor intake;    // [PORT 9]  — cartridge TBD
+extern pros::Motor FourBar1; // Port 8  (reversed) — green
+extern pros::Motor FourBar2; // Port 19             — green
+extern pros::Motor intake;   // Port 2  (reversed) — blue
 
 extern pros::adi::Pneumatics claw;
 
 // Sensors
-extern pros::Imu imu;           // [PORT 10]
-extern pros::Rotation trackY;   // [PORT 11] vertical tracking wheel
-extern pros::Rotation trackX;   // [PORT 12] horizontal tracking wheel
+extern pros::Imu imu;           // Port 10
+extern pros::Rotation trackY;   // Port 11 — vertical tracking wheel
+extern pros::Rotation trackX;   // Port 12 — horizontal tracking wheel
 
 // Expo drive curves
 extern lemlib::ExpoDriveCurve throttle_curve;
