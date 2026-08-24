@@ -13,15 +13,14 @@ void initialize() {
 
     DriveL.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     DriveR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
-    FourBar.set_brake_mode_all(pros::E_MOTOR_BRAKE_HOLD);
-    intake.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    
 
     chassis.setPose(0, 0, 0);
-    GUI_runAutonSelector();
+    //GUI_runAutonSelector();
 }
 
 void disabled() {
-    GUI_showDebugScreen();
+    //GUI_showDebugScreen();
 }
 
 void competition_initialize() {
@@ -29,18 +28,15 @@ void competition_initialize() {
 }
 
 void autonomous() {
-    if (selectedAuton >= 0 && selectedAuton < AUTON_COUNT) {
-        AUTONS[selectedAuton].run();
-    }
+    // if (selectedAuton >= 0 && selectedAuton < AUTON_COUNT) {
+    //     AUTONS[selectedAuton].run();
+    // }
 }
 
 void opcontrol() {
-    GUI_showDebugScreen();
+    //GUI_showDebugScreen();
 
     new pros::Task(DriveTrainControls);
-    new pros::Task(ClawControls);
-    new pros::Task(FourBarControls);
-    new pros::Task(IntakeControls);
 
     while (true) {
         pros::delay(20);

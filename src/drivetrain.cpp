@@ -48,45 +48,45 @@ void DriveTrainControls() {
 
 // --------- CLAW (pneumatic) ---------
 // Y = toggle extend/retract
-void ClawControls() {
-    static bool clawExtended = false;
+// void ClawControls() {
+//     static bool clawExtended = false;
 
-    while (true) {
-        if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
-            clawExtended = !clawExtended;
-            if (clawExtended) claw.extend();
-            else claw.retract();
-        }
-        pros::delay(10);
-    }
-}
+//     while (true) {
+//         if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+//             clawExtended = !clawExtended;
+//             if (clawExtended) claw.extend();
+//             else claw.retract();
+//         }
+//         pros::delay(10);
+//     }
+// }
 
-// --------- 4-BAR ---------
-// L1 = up | L2 = down
-void FourBarControls() {
-    while (true) {
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-            FourBar.move(127);
-        } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-            FourBar.move(-127);
-        } else {
-            FourBar.brake();
-        }
-        pros::delay(10);
-    }
-}
+// // --------- 4-BAR ---------
+// // L1 = up | L2 = down
+// void FourBarControls() {
+//     while (true) {
+//         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+//             FourBar.move(127);
+//         } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+//             FourBar.move(-127);
+//         } else {
+//             FourBar.brake();
+//         }
+//         pros::delay(10);
+//     }
+// }
 
-// --------- INTAKE ---------
-// R1 = in | R2 = out
-void IntakeControls() {
-    while (true) {
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
-            intake.move(127);
-        } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-            intake.move(-127);
-        } else {
-            intake.brake();
-        }
-        pros::delay(10);
-    }
-}
+// // --------- INTAKE ---------
+// // R1 = in | R2 = out
+// void IntakeControls() {
+//     while (true) {
+//         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+//             intake.move(127);
+//         } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+//             intake.move(-127);
+//         } else {
+//             intake.brake();
+//         }
+//         pros::delay(10);
+//     }
+// }

@@ -13,20 +13,20 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 
 // Drivetrain Motors — negative port = reversed
-pros::Motor L1(-21, pros::MotorGears::blue);  // left front
-pros::Motor L2(17, pros::MotorGears::blue);   // left back
-pros::Motor L3(18, pros::MotorGears::green);  // left middle, 3:1 stepped to 600 rpm
-pros::Motor R1(-6, pros::MotorGears::blue);   // right front
+pros::Motor L1(-10, pros::MotorGears::blue);  // left front
+pros::Motor L2(-1, pros::MotorGears::blue);   // left back
+pros::Motor L3(-6, pros::MotorGears::green);  // left middle, 3:1 stepped to 600 rpm
+pros::Motor R1(20, pros::MotorGears::blue);   // right front
 pros::Motor R2(16, pros::MotorGears::blue);   // right back
-pros::Motor R3(-15, pros::MotorGears::green); // right middle, 3:1 stepped to 600 rpm
+pros::Motor R3(11, pros::MotorGears::green); // right middle, 3:1 stepped to 600 rpm
 
-pros::Motor FourBar1(-8, pros::MotorGears::green);
-pros::Motor FourBar2(19, pros::MotorGears::green);
-pros::Motor intake(-2, pros::MotorGears::blue); // FIXED: was pros::MotorGear (wrong type, likely a compile error)
+//pros::Motor FourBar1(-8, pros::MotorGears::green);
+//pros::Motor FourBar2(19, pros::MotorGears::green);
+//pros::Motor intake(-2, pros::MotorGears::blue); // FIXED: was pros::MotorGear (wrong type, likely a compile error)
 
-pros::MotorGroup DriveL({-21, 17, 18});
-pros::MotorGroup DriveR({-6, 16, -15});
-pros::MotorGroup FourBar({19, -8});
+pros::MotorGroup DriveL({-10, -1, -6});
+pros::MotorGroup DriveR({20, 16, 11});
+//pros::MotorGroup FourBar({19, -8});
 
 pros::adi::Pneumatics claw('H', true);
 

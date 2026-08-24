@@ -24,12 +24,12 @@ extern pros::Motor R3;   // Port 15 (reversed) — green, 3:1 stepped — right 
 
 extern pros::MotorGroup DriveL;
 extern pros::MotorGroup DriveR;
-extern pros::MotorGroup FourBar;
+//extern pros::MotorGroup FourBar;
 
 // Mechanism Motors
-extern pros::Motor FourBar1; // Port 8  (reversed) — green
-extern pros::Motor FourBar2; // Port 19             — green
-extern pros::Motor intake;   // Port 2  (reversed) — blue
+//extern pros::Motor FourBar1; // Port 8  (reversed) — green
+//extern pros::Motor FourBar2; // Port 19             — green
+//extern pros::Motor intake;   // Port 2  (reversed) — blue
 
 extern pros::adi::Pneumatics claw;
 
