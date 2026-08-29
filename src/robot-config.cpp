@@ -15,10 +15,15 @@ pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 // Drivetrain Motors — negative port = reversed
 pros::Motor L1(-10, pros::MotorGears::blue);  // left front
 pros::Motor L2(-1, pros::MotorGears::blue);   // left back
-pros::Motor L3(-6, pros::MotorGears::green);  // left middle, 3:1 stepped to 600 rpm
+pros::Motor L3(-1, pros::MotorGears::green);  // left middle, 3:1 stepped to 600 rpm
 pros::Motor R1(20, pros::MotorGears::blue);   // right front
 pros::Motor R2(16, pros::MotorGears::blue);   // right back
 pros::Motor R3(11, pros::MotorGears::green); // right middle, 3:1 stepped to 600 rpm
+
+pros::Motor cascade1(-5, pros::MotorGears::blue); // right middle, 3:1 stepped to 600 rpm
+pros::Motor cascade2(7, pros::MotorGears::blue); // right middle, 3:1 stepped to 600 rpm
+pros::MotorGroup cascade({-5, 7});
+
 
 //pros::Motor FourBar1(-8, pros::MotorGears::green);
 //pros::Motor FourBar2(19, pros::MotorGears::green);

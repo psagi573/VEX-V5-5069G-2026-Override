@@ -21,9 +21,12 @@ extern pros::Motor L3;   // Port 18             — green, 3:1 stepped — left 
 extern pros::Motor R1;   // Port 6  (reversed) — blue  — right front
 extern pros::Motor R2;   // Port 16             — blue  — right back
 extern pros::Motor R3;   // Port 15 (reversed) — green, 3:1 stepped — right middle
+extern pros::Motor cascade1; // Port 5  (reversed) — blue  — right middle
+extern pros::Motor cascade2; // Port 7  (reversed) — blue  — right middle
 
 extern pros::MotorGroup DriveL;
 extern pros::MotorGroup DriveR;
+extern pros::MotorGroup cascade;
 //extern pros::MotorGroup FourBar;
 
 // Mechanism Motors

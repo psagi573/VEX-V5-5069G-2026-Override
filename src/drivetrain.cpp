@@ -61,20 +61,20 @@ void DriveTrainControls() {
 //     }
 // }
 
-// // --------- 4-BAR ---------
-// // L1 = up | L2 = down
-// void FourBarControls() {
-//     while (true) {
-//         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-//             FourBar.move(127);
-//         } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-//             FourBar.move(-127);
-//         } else {
-//             FourBar.brake();
-//         }
-//         pros::delay(10);
-//     }
-// }
+// --------- 4-BAR ---------
+// L1 = up | L2 = down
+void CascadeControls() {
+    while (true) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+            cascade.move(127);
+        } else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+            cascade.move(-127);
+        } else {
+            cascade.brake();
+        }
+        pros::delay(10);
+    }
+}
 
 // // --------- INTAKE ---------
 // // R1 = in | R2 = out
