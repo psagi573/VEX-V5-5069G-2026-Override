@@ -14,6 +14,8 @@ void initialize() {
     DriveL.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     DriveR.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
     cascade.set_brake_mode_all(pros::E_MOTOR_BRAKE_HOLD);
+    intake.set_brake_mode_all(pros::E_MOTOR_BRAKE_BRAKE);
+
     
 
     chassis.setPose(0, 0, 0);
@@ -39,6 +41,7 @@ void opcontrol() {
 
     new pros::Task(DriveTrainControls);
     new pros::Task(CascadeControls);
+    new pros::Task(IntakeControls);
 
     while (true) {
         pros::delay(20);
