@@ -1,5 +1,5 @@
 // // ============================================================
-// //  GUI.h — Auton Selector + Debug | ZIPPY 5069G
+// //  GUI.h — Auton Selector + Debug | AVRO 5069G
 // //  V5RC Override 2026-27 | LVGL 9.2 | PROS 4
 // // ============================================================
 // #pragma once

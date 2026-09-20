@@ -8,22 +8,16 @@
 
 // ============================================================
 // drivetrain.cpp — AVRO | Override 2026-2027
-// Experimental Driver Control V2
+// Driver Control V2
 // ============================================================
-
-// ------------------------------------------------------------
-// DRIVER SETTINGS
-// ------------------------------------------------------------
 
 static constexpr double JOYSTICK_DEADBAND = 4.0;
 
-// Below this value, arcade uses LemLib's ExpoDriveCurve.
-// At or above this value on either axis, arcade switches to
-// direct linear control.
+// expo cutoff after will be linear
 static constexpr double EXPO_CUTOFF = 19.0;
 
-// Hold UP + X for this long to switch drive modes.
-static constexpr std::uint32_t DRIVE_TOGGLE_HOLD_MS = 2000;
+// time to hold the combo to toggle
+static constexpr std::uint32_t DRIVE_TOGGLE_HOLD_MS = 1200;
 
 
 // ------------------------------------------------------------
@@ -35,12 +29,12 @@ enum class DriveMode {
     TANK
 };
 
-// Start the robot in split arcade.
+// Start split arcade.
 static DriveMode driveMode = DriveMode::ARCADE;
 
 
 // ------------------------------------------------------------
-// LINEAR JOYSTICK PROCESSING
+// LINEAR JOYSTICK input
 // ------------------------------------------------------------
 
 double linearJoystick(double input) {
@@ -53,13 +47,11 @@ double linearJoystick(double input) {
 
 
 // ------------------------------------------------------------
-// CONTROLLER VALUE → MOTOR VOLTAGE
+// CONTROLLER VALUE into MOTOR VOLTAGE
 //
-// Input:
-//     -127 → +127
+// Input range is -127 to +127
 //
-// Output:
-//     -12000 → +12000 mV
+// Output range value is -12000 → +12000 mV
 // ------------------------------------------------------------
 
 int joystickToVoltage(double joystick) {
@@ -75,12 +67,7 @@ int joystickToVoltage(double joystick) {
 // ------------------------------------------------------------
 // DRIVE MODE TOGGLE
 //
-// UP + X must be held simultaneously for 2 seconds.
-//
-// Important behavior:
-// - Toggle occurs once.
-// - Continuing to hold does NOT repeatedly toggle.
-// - Buttons must be released before another toggle can occur.
+// hold up and x for 2 seconds to change drive mode.
 // ------------------------------------------------------------
 
 static bool comboTiming = false;
@@ -99,7 +86,7 @@ void checkDriveModeToggle() {
 
 
     // --------------------------------------------------------
-    // Combo just started
+    // Combo code start
     // --------------------------------------------------------
 
     if (comboHeld && !comboTiming) {
@@ -111,7 +98,7 @@ void checkDriveModeToggle() {
 
 
     // --------------------------------------------------------
-    // Combo is being held
+    // Combo buttons held
     // --------------------------------------------------------
 
     if (comboHeld && comboTiming && !comboTriggered) {
@@ -142,7 +129,7 @@ void checkDriveModeToggle() {
 
 
     // --------------------------------------------------------
-    // Combo released → re-arm system
+    // Combo released
     // --------------------------------------------------------
 
     if (!comboHeld) {
@@ -159,11 +146,9 @@ void checkDriveModeToggle() {
 // LEFT Y  = throttle
 // RIGHT X = turn
 //
-// Below cutoff:
-//     LemLib ExpoDriveCurve
+// before cutoff uses LemLib ExpoDriveCurve.
 //
-// Above cutoff:
-//     Pure linear arcade mixing
+// after cutoff uses full linear arcade 
 // ------------------------------------------------------------
 
 void arcadeDrive() {
@@ -180,7 +165,7 @@ void arcadeDrive() {
 
 
     // --------------------------------------------------------
-    // PRECISION REGION
+    // EXPO RANGE
     // --------------------------------------------------------
 
     if (std::fabs(forward) < EXPO_CUTOFF &&
@@ -195,7 +180,7 @@ void arcadeDrive() {
 
 
     // --------------------------------------------------------
-    // LINEAR REGION
+    // LINEARIZATION
     // --------------------------------------------------------
 
     forward = linearJoystick(forward);
@@ -233,8 +218,8 @@ void arcadeDrive() {
 // LEFT Y  = left drivetrain
 // RIGHT Y = right drivetrain
 //
-// Completely linear.
-// No LemLib ExpoDriveCurve.
+// full linear.
+// No ExpoDriveCurve.
 // ------------------------------------------------------------
 
 void tankDrive() {

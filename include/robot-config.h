@@ -5,7 +5,7 @@
 #include "pros/adi.hpp"
 
 // ============================================================
-//  robot-config.h — ZIPPY 2 | Override 2026-2027
+//  robot-config.h — AVRO | Override 2026-2027
 // ============================================================
 
 // Controllers
