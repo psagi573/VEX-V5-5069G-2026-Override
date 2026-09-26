@@ -337,3 +337,35 @@ void IntakeControls() {
         pros::delay(10);
     }
 }
+
+
+
+void ClawControls() {
+  static bool claw1 = false;
+  while (true) {
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
+      claw1 = !claw1;
+      if (claw1) {
+        claw.extend();
+      } else {
+        claw.retract();
+      }
+    }
+    pros::delay(10);
+  }
+}
+
+void wristControls() {
+  static bool wrist1 = false;
+  while (true) {
+    if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
+      wrist1 = !wrist1;
+      if (wrist1) {
+        wrist.extend();
+      } else {
+        wrist.retract();
+      }
+    }
+    pros::delay(10);
+  }
+}

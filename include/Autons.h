@@ -21,6 +21,8 @@ struct AutonEntry {
 
 void autonNone();
 
+void autonRed();
+
 void autonLeft();
 
 void autonRight();

@@ -78,7 +78,8 @@ pros::MotorGroup DriveR({9, 10, 8});
 // Pneumatics
 // ============================================================
 
-pros::adi::Pneumatics claw('H', true);
+pros::adi::Pneumatics claw('B', false);
+pros::adi::Pneumatics wrist('A', false);
 
 // ============================================================
 // Sensors
@@ -90,7 +91,7 @@ pros::Imu imu(4);
 // Tracking wheel rotation sensors
 pros::Rotation trackY(-2);  // Vertical tracking wheel
 pros::Rotation trackX(-3);  // Horizontal tracking wheel
-pros::Rotation Lift(-16);  // Unused tracking wheel
+pros::Rotation Lift(16);  // Unused tracking wheel
 
 // ============================================================
 // LemLib Drivetrain Configuration
@@ -155,12 +156,12 @@ lemlib::OdomSensors sensors(
 lemlib::ControllerSettings lateralPID(
     9,   // kP
     0,    // kI
-    2,    // kD 6
+    4,    // kD 6
     0,    // anti-windup
     1,    // small error range (in)
-    200,  // small error timeout (ms)
-    6,    // large error range (in)
-    400,  // large error timeout (ms)
+    100,  // small error timeout (ms)
+    3,    // large error range (in)
+    500,  // large error timeout (ms)
     0    // maximum acceleration slew
 );
 
@@ -171,14 +172,14 @@ lemlib::ControllerSettings lateralPID(
 // completed robot.
 
 lemlib::ControllerSettings angularPID(
-    1.7,    // kP 2.12
+    2.12,    // kP 2.12
     0,    // kI
-    5,   // kD 8
+    10,   // kD 8
     0,    // anti-windup
-    5,    // small error range (deg)
-    300,  // small error timeout (ms)
-    15,    // large error range (deg)
-    500,  // large error timeout (ms)
+    2,    // small error range (deg)
+    20,  // small error timeout (ms)
+    10,    // large error range (deg)
+    200,  // large error timeout (ms)
     0   // maximum acceleration slew
 );
 

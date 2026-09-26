@@ -46,6 +46,7 @@ extern pros::Motor intake;
 // ============================================================
 
 extern pros::adi::Pneumatics claw;
+extern pros::adi::Pneumatics wrist;
 
 // ============================================================
 // Sensors
