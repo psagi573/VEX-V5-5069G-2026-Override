@@ -4,10 +4,6 @@
 
 #include "pros/adi.hpp"
 
-// ============================================================
-//  robot-config.h — AVRO | Override 2026-2027
-// ============================================================
-
 // Controllers
 extern pros::Controller master;
 extern pros::Controller partner;
@@ -58,6 +54,7 @@ extern pros::adi::Pneumatics claw;
 extern pros::Imu imu;             // IMU — port assignment in robot-config.cpp
 extern pros::Rotation trackY;     // Vertical tracking wheel
 extern pros::Rotation trackX;     // Horizontal tracking wheel
+extern pros::Rotation Lift;       // cascade tracking wheel
 
 // ============================================================
 // LemLib

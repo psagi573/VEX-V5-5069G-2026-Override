@@ -3,7 +3,7 @@
 #include "lemlib/chassis/trackingWheel.hpp"
 
 #include "pros/abstract_motor.hpp"
-#include "pros/adi.h"
+//#include "pros/adi.h"
 #include "pros/adi.hpp"
 #include "pros/motors.hpp"
 
@@ -85,11 +85,12 @@ pros::adi::Pneumatics claw('H', true);
 // ============================================================
 
 // IMU port is currently a placeholder and will be assigned later.
-pros::Imu imu(10);
+pros::Imu imu(4);
 
 // Tracking wheel rotation sensors
-pros::Rotation trackY(11);  // Vertical tracking wheel
-pros::Rotation trackX(12);  // Horizontal tracking wheel
+pros::Rotation trackY(-2);  // Vertical tracking wheel
+pros::Rotation trackX(-3);  // Horizontal tracking wheel
+pros::Rotation Lift(-16);  // Unused tracking wheel
 
 // ============================================================
 // LemLib Drivetrain Configuration
@@ -122,14 +123,15 @@ lemlib::Drivetrain drivetrain(
 
 lemlib::TrackingWheel vertWheel(
     &trackY,
-    2.0,  // Diameter in inches [TUNE]
-    0.0   // Offset in inches [TUNE]
+    //lemlib::Omniwheel::NEW_2,  // Diameter in inches [TUNE]
+    2.125,
+    -1.65   // Offset in inches [TUNE]   //-1.6
 );
 
 lemlib::TrackingWheel horizWheel(
     &trackX,
-    2.0,  // Diameter in inches [TUNE]
-    0.0   // Offset in inches [TUNE]
+    lemlib::Omniwheel::NEW_2,  // Diameter in inches [TUNE]
+    -1.2    // Offset in inches [TUNE]//-1.5
 );
 
 // ============================================================
@@ -151,15 +153,15 @@ lemlib::OdomSensors sensors(
 // completed robot.
 
 lemlib::ControllerSettings lateralPID(
-    10,   // kP
+    9,   // kP
     0,    // kI
-    3,    // kD
-    3,    // anti-windup
+    2,    // kD 6
+    0,    // anti-windup
     1,    // small error range (in)
-    100,  // small error timeout (ms)
-    3,    // large error range (in)
-    500,  // large error timeout (ms)
-    20    // maximum acceleration slew
+    200,  // small error timeout (ms)
+    6,    // large error range (in)
+    400,  // large error timeout (ms)
+    0    // maximum acceleration slew
 );
 
 // ============================================================
@@ -169,15 +171,15 @@ lemlib::ControllerSettings lateralPID(
 // completed robot.
 
 lemlib::ControllerSettings angularPID(
-    2,    // kP
+    1.7,    // kP 2.12
     0,    // kI
-    10,   // kD
-    3,    // anti-windup
-    1,    // small error range (deg)
-    100,  // small error timeout (ms)
-    3,    // large error range (deg)
+    5,   // kD 8
+    0,    // anti-windup
+    5,    // small error range (deg)
+    300,  // small error timeout (ms)
+    15,    // large error range (deg)
     500,  // large error timeout (ms)
-    0     // maximum acceleration slew
+    0   // maximum acceleration slew
 );
 
 // ============================================================
